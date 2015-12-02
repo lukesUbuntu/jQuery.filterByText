@@ -13,8 +13,19 @@
 	  $selectBx.data('dOptions', dOptions);
 	  //on keychange update
 	   $(textInput).bind('change keyup', function () {
-		   //get options and clear
+			//regex search and show only
+			var search = $(this).val().trim();
+			//get options and clear
 		    var dOptions = $(selectBx).empty().data('dOptions');
+                var regex = new RegExp(search, "gi");
+                $.each(dOptions, function (i) {
+                    var option = options[i];
+                    if (option.text.test(regex)) {
+                        $(selectBx).append(
+                            $('<option>').text(option.text).val(option.value)
+                        );
+                    }
+                });
 	   });
     })
  });
